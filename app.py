@@ -52,10 +52,10 @@ with open(students, 'r') as csvfile:
         graphs.add_courses(course_row[0], course_row[1], course_row[2])
 
 
-#This is where we grab the name of each student found in the vertices students in graphs. We then use the calculate method to receive back all the relevant information for that specific student and add this information to the student class. Afterwards we calculate the average  and append the student to the array of overall students we defined at the top of this file. (The methods are expanded on in their respective files)
-for name in graphs.students:
-    student=Student(name,graphs.students[name])
-    calculations= graphs.calculate_grade(int(graphs.students[name]))
+#This is where we grab the Id of each student found in the array idOrder in graphs. The array is sorted ensuring we are looking at the students in order of their id.We pass in the ID and the name of the student into the student class. We then use the calculate method to receive back all the relevant information for that specific student and add this information to the student class. Afterwards we calculate the average  and append the student to the array of overall students we defined at the top of this file. (The methods are expanded on in their respective files)
+for ID in graphs.idOrder:
+    student=Student(graphs.studentsId[f"{ID}"],ID)
+    calculations= graphs.calculate_grade(ID)
     for i in calculations[0]:
         if calculations[2][i] !=100:
             calculations[0][i]= "Weight does not equal 100. Error!!"
@@ -74,3 +74,4 @@ with open("reportCard.txt", "w") as reportCard:
             reportCard.write(f"\t\tCourse: {Class}, Teacher: {stud.class_Teacher[Class]}\n")
             reportCard.write(f"\t\tFinal Grade:   {stud.class_Info[Class]}0%\n\n\n")
     reportCard.close()
+
